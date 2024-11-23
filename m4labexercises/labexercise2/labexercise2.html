@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lab exercise 2</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #e3f2fd;
+      }
+      .card {
+        padding: 10px;
+      }
+      .card-title {
+        font-weight: 600;
+        font-size: 3em;
+        padding: 0 0 10px 0;
+      }
+      .card-description {
+        font-weight: 400;
+        font-size: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <template id="card-template">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title"></div>
+          <div class="card-text"></div>
+        </div>
+      </div>
+    </template>
+    <div id="card-list"></div>
+  </body>
+</html>
+<script>
+  function addCard(title = "Default Title", text = "Default Text") {
+    // clone the template
+    const template = document
+      .getElementById("card-template")
+      .content.cloneNode(true);
+    // populate the template
+    template.querySelector(".card-title").innerText = title;
+    template.querySelector(".card-text").innerText = text;
+    // include the populated template into the page
+    document.querySelector("#card-list").appendChild(template);
+  }
+  addCard("First Card", "This is the description for the first card.");
+  addCard("Second Card", "Here is some more text for another card.");
+
+  const data = [
+    { name: "bob", age: 23 },
+    { name: "alice", age: 39 },
+  ];
+  for (let i = 0; i < data.length; i++) {
+    const person = data[i];
+    addCard(`Name: ${person.name}`, `Age: ${person.age}`);
+  }
+</script>

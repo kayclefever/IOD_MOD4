@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Van Gogh - Portfolio</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+
+      .artist-card {
+        background-color: #ffeb3b;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .artist-card h2 {
+        margin: 0;
+        font-size: 2em;
+        font-weight: 600;
+      }
+
+      .portfolio-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .portfolio-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        text-align: center;
+      }
+
+      .portfolio-card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .portfolio-card .title {
+        margin-top: 10px;
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Van Gogh's Portfolio</h1>
+
+    <div id="artist-profile"></div>
+
+    <template id="artist-template">
+      <div class="artist-card">
+        <h2></h2>
+      </div>
+    </template>
+
+    <template id="portfolio-template">
+      <div class="portfolio-card">
+        <img alt="Portfolio item" />
+        <div class="title"></div>
+      </div>
+    </template>
+
+    <script>
+      const artist = {
+        name: "Van Gogh",
+        portfolio: [
+          {
+            title: "portrait",
+            url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436532/1671316/main-image",
+          },
+          {
+            title: "sky",
+            url: "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
+          },
+        ],
+      };
+
+      function addArtistProfile(artist) {
+        const artistTemplate = document
+          .getElementById("artist-template")
+          .content.cloneNode(true);
+
+        artistTemplate.querySelector("h2").innerText = `Artist: ${artist.name}`;
+
+        document.getElementById("artist-profile").appendChild(artistTemplate);
+      }
+
+      function addPortfolio(artist) {
+        const portfolioContainer = document.createElement("div");
+        portfolioContainer.classList.add("portfolio-container");
+
+        artist.portfolio.forEach((item) => {
+          const portfolioTemplate = document
+            .getElementById("portfolio-template")
+            .content.cloneNode(true);
+
+          portfolioTemplate.querySelector("img").src = item.url;
+          portfolioTemplate.querySelector(".title").innerText = item.title;
+
+          portfolioContainer.appendChild(portfolioTemplate);
+        });
+
+        document
+          .getElementById("artist-profile")
+          .appendChild(portfolioContainer);
+      }
+
+      addArtistProfile(artist);
+      addPortfolio(artist);
+    </script>
+  </body>
+</html>
