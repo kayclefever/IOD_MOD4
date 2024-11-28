@@ -8,47 +8,39 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>
   </head>
   <body>
-    <!-- Prepare a DOM with a defined width and height for ECharts -->
     <div id="main" style="width: 900px; height: 600px"></div>
     <script type="text/javascript">
-      // Initialize the echarts instance based on the prepared div
       let myChart = echarts.init(document.getElementById("main"));
 
-      // Fetch data from Fake Store API
       fetch("https://fakestoreapi.com/products")
         .then((response) => response.json())
         .then((json) => {
-          // Process the data to count items per category
           const categoryCount = {};
 
-          // Loop through the products and count how many belong to each category
           json.forEach((product) => {
             const category = product.category;
             categoryCount[category] = (categoryCount[category] || 0) + 1;
           });
 
-          // Prepare the data for the chart
           const categories = Object.keys(categoryCount);
           const counts = Object.values(categoryCount);
 
-          // Specify the configuration items and data for the chart
           let options = {
             title: { text: "Fake Store Categories" },
             xAxis: {
               type: "category",
-              data: categories, // Use categories from the API
+              data: categories,
             },
             yAxis: {},
             series: [
               {
                 name: "# products",
                 type: "bar",
-                data: counts, // Use counts of products per category
+                data: counts,
               },
             ],
           };
 
-          // Display the chart with the updated data
           myChart.setOption(options);
         })
         .catch((error) => {
