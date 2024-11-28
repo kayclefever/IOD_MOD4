@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: aliceblue;
+}
+
+.slider-container {
+  position: relative;
+  width: 100px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.slider {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: #0519ee;
+  animation: slide 4s ease-in-out infinite;
+  border-radius: 10px;
+}
+
+@keyframes slide {
+  0% {
+    top: 0;
+    background-color: #f91900;
+  }
+  50% {
+    top: 200px;
+    background-color: #0519ee;
+  }
+  100% {
+    top: 0;
+    background-color: #f91900;
+  }
+}

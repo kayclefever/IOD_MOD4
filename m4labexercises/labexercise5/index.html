@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News Feed</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .news-container {
+        margin-top: 20px;
+      }
+      .news-item {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+      form {
+        margin-bottom: 20px;
+      }
+      input,
+      textarea,
+      button {
+        display: block;
+        margin: 10px 0;
+        padding: 10px;
+        width: 100%;
+        max-width: 400px;
+      }
+      button {
+        width: auto;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .stop-button {
+        background-color: #dc3545;
+      }
+      .stop-button:hover {
+        background-color: #a71d2a;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Module 4 Lab Exercise 5</h1>
+    <form id="newsForm">
+      <input
+        type="text"
+        id="newsTitle"
+        placeholder="Enter news title"
+        required
+      />
+      <textarea
+        id="newsContent"
+        placeholder="Enter news content"
+        rows="4"
+        required
+      ></textarea>
+      <button type="submit">Add News</button>
+    </form>
+    <div class="news-container" id="newsContainer"></div>
+    <button class="stop-button" id="stopButton">Stop Updates</button>
+
+    <script>
+      let news = [
+        {
+          id: 1,
+          title: "Election Results",
+          content: "Newly elected minister...",
+        },
+        { id: 2, title: "Sporting Success", content: "World Cup winners..." },
+        {
+          id: 3,
+          title: "Tornado Warning",
+          content: "Residents should prepare...",
+        },
+      ];
+
+      let intervalId;
+      function renderNews() {
+        const container = document.getElementById("newsContainer");
+        container.innerHTML = "";
+        news.forEach((item) => {
+          const newsElement = document.createElement("div");
+          newsElement.className = "news-item";
+          newsElement.innerHTML = `
+          <h3>${item.title}</h3>
+          <p>${item.content}</p>
+        `;
+          container.appendChild(newsElement);
+        });
+      }
+      document
+        .getElementById("newsForm")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const title = document.getElementById("newsTitle").value;
+          const content = document.getElementById("newsContent").value;
+          if (title && content) {
+            const newItem = {
+              id: news.length + 1,
+              title: title,
+              content: content,
+            };
+            news.push(newItem);
+            document.getElementById("newsTitle").value = "";
+            document.getElementById("newsContent").value = "";
+          }
+        });
+
+      function startNewsUpdates() {
+        intervalId = setInterval(renderNews, 5000);
+      }
+
+      document.getElementById("stopButton").addEventListener("click", () => {
+        clearInterval(intervalId);
+        alert("News updates stopped.");
+      });
+
+      renderNews();
+      startNewsUpdates();
+    </script>
+  </body>
+</html>
