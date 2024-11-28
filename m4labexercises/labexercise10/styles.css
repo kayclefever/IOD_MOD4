@@ -1,0 +1,12 @@
+.card {
+  margin-bottom: 20px;
+  border-color: darkolivegreen;
+}
+.card-img-top {
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.card-body {
+  flex-grow: 1;
+}
